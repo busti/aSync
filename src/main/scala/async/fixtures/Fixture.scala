@@ -3,7 +3,6 @@ package async.fixtures
 import async.util.OlaHelper
 import spire.math.Quaternion
 
-import scala.concurrent.Await
 import scala.concurrent.duration._
 import scala.language.postfixOps
 
@@ -39,7 +38,7 @@ class Fixture(val metadata: Metadata, val position: Vector[Double], val orientat
 }
 
 object Fixture {
-  val olaClient = Await.result(OlaHelper.olaClient, 2 minutes)
+  val olaClient = OlaHelper.olaClient
 
   var fixtures  = Seq[Fixture]()
   var universes = Map[Int, Array[Byte]]()
