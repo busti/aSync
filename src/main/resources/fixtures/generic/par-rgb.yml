@@ -1,0 +1,5 @@
+info: A Par Fixture that has 3 Channels for Red, Green and Blue Color
+channels:
+- red
+- green
+- blue

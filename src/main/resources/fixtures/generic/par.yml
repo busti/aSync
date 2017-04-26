@@ -1,0 +1,3 @@
+info: A Par Fixture that uses a single channel for brighness
+channels:
+- brightness

@@ -1,0 +1,3 @@
+info: A Fog-Machine with a single channel for emission intensity
+channels:
+- intensity
