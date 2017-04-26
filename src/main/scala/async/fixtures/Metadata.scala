@@ -37,4 +37,4 @@ case class Origin(offset: Vector[Double], orientation: Option[Quaternion[Double]
   * @param info     Additional information about the fixture.
   * @param channels The Fixtures channels.
   */
-case class Metadata(name: String, info: Option[String], channels: Seq[Channel])
+case class Metadata(name: String, info: Option[String], channels: Seq[Channel], emitters :Seq[Origin])

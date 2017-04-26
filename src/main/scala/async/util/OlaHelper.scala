@@ -8,7 +8,7 @@ object OlaHelper extends LazyLogging {
   var olaClient: OlaClient = _
 
   def initClient() {
-    olaClient = connect
+    olaClient = connect()
   }
 
   def connect(): OlaClient = {
