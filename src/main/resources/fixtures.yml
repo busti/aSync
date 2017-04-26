@@ -1,17 +1,17 @@
 fixtures:
-  generic:
+  fixtures.generic:
     par:
-      info: A generic par can that utilizes a single channel
+      info: A fixtures.generic par can that utilizes a single channel
       channels:
         - brightness
     rgb:
-      info: A generic led effect with red, green and blue leds
+      info: A fixtures.generic led effect with red, green and blue leds
       channels:
         - red
         - green
         - blue
     rgbw:
-      info: A generic led effect with red, green, blue and white leds
+      info: A fixtures.generic led effect with red, green, blue and white leds
       channels:
         - red
         - green

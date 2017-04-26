@@ -33,8 +33,15 @@ case class Origin(offset: Vector[Double], orientation: Option[Quaternion[Double]
 /**
   * A Metadata object contains metadata about a fixture product.
   *
+  * @param folder   The folder the fixture is found in. This corresponds to the
+  *                 company that manufactured the fixture most of the time.
   * @param name     The Name of the fixture as specified by the datasheet.
   * @param info     Additional information about the fixture.
   * @param channels The Fixtures channels.
+  * @param emitters The sources of the Fixtures emmissions.
   */
-case class Metadata(name: String, info: Option[String], channels: Seq[Channel], emitters :Seq[Origin])
+case class Metadata(folder: String, name: String, info: Option[String], channels: Seq[Channel], emitters: Seq[Origin])
+
+object Metadata {
+  val metadata = Map()
+}
