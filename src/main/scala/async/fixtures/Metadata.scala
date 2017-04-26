@@ -1,5 +1,6 @@
 package async.fixtures
 
+import java.io.File
 import spire.math.Quaternion
 
 /**
@@ -34,7 +35,7 @@ case class Origin(offset: Vector[Double], orientation: Option[Quaternion[Double]
   * A Metadata object contains metadata about a fixture product.
   *
   * @param folder   The folder the fixture is found in. This corresponds to the
-  *                 company that manufactured the fixture most of the time.
+  *                 manufacturer most of the time.
   * @param name     The Name of the fixture as specified by the datasheet.
   * @param info     Additional information about the fixture.
   * @param channels The Fixtures channels.
@@ -43,5 +44,10 @@ case class Origin(offset: Vector[Double], orientation: Option[Quaternion[Double]
 case class Metadata(folder: String, name: String, info: Option[String], channels: Seq[Channel], emitters: Seq[Origin])
 
 object Metadata {
-  val metadata = Map()
+  var metadata: Set[Metadata] = _
+
+  def initMetadata() {
+    new ClassLoader.getSystemResource("fixtures")
+  }
+
 }
