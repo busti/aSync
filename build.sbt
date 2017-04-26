@@ -9,3 +9,5 @@ libraryDependencies ++= Seq(
   "com.typesafe.scala-logging" %% "scala-logging"   % "3.5.0",
   "com.google.protobuf"        %  "protobuf-java"   % "3.2.0"
 )
+
+mainClass in (Compile, run) := Some("async.server.Server")
