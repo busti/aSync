@@ -1,15 +1,12 @@
 package async.server
 
-import java.net.InetSocketAddress
-import java.nio.channels.{ServerSocketChannel, SocketChannel}
-
+import async.util.OlaHelper
 import com.typesafe.scalalogging.LazyLogging
 import de.sciss.osc._
-import Implicits._
 
 object Server extends App with LazyLogging {
   logger.info("Starting Audio-Sync")
-  //OlaHelper.initClient()
+  OlaHelper.initClient()
 
   val cfg = TCP.Config()
   cfg.localPort = 8000

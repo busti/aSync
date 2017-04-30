@@ -35,6 +35,21 @@ class Fixture(val metadata: Metadata, val position: Vector[Double], val orientat
     channelData(channel) = value
     markDirty()
   }
+
+  def writeDMX(name: String, value: Byte) {
+    channelData(metadata.channels.indexOf(
+      metadata.channels.find(c => c.name == name).getOrElse(metadata.channels.head))
+    ) = value
+  }
+
+  def writeColor(red: Float, green: Float, blue: Float) {
+    writeDMX("red", (red * 255).toByte)
+    writeDMX("green", (green * 255).toByte)
+    writeDMX("blue", (blue * 255).toByte)
+  }
+
+  Fixture.registerFixtures(this)
+
 }
 
 object Fixture {

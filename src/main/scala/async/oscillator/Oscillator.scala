@@ -1,7 +1,5 @@
 package async.oscillator
 
-import scalafx.Includes._
-
 class Oscillator(filter: Float) {
   var last   = System.currentTimeMillis()
   var period = 0d
