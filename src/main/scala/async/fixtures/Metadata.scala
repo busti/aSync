@@ -1,6 +1,5 @@
 package async.fixtures
 
-import java.io.File
 import spire.math.Quaternion
 
 /**
@@ -47,7 +46,7 @@ object Metadata {
   var metadata: Set[Metadata] = _
 
   def initMetadata() {
-    new ClassLoader.getSystemResource("fixtures")
+    //new ClassLoader.getSystemResource("fixtures")
   }
 
 }

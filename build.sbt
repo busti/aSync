@@ -7,7 +7,10 @@ libraryDependencies ++= Seq(
   "org.typelevel"              %  "spire_2.11"      % "0.14.1",
   "ch.qos.logback"             %  "logback-classic" % "1.1.7",
   "com.typesafe.scala-logging" %% "scala-logging"   % "3.5.0",
-  "com.google.protobuf"        %  "protobuf-java"   % "3.2.0"
+  "com.google.protobuf"        %  "protobuf-java"   % "3.2.0",
+  "de.sciss"                   %% "scalaosc"        % "1.1.5",
+  "com.github.nscala-time"     %% "nscala-time"     % "2.16.0",
+  "org.scalafx"                %% "scalafx"         % "8.0.102-R11"
 )
 
 mainClass in (Compile, run) := Some("async.server.Server")
