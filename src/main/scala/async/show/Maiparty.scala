@@ -3,8 +3,9 @@ package async.show
 import async.effects.Effect
 import async.fixtures.{Channel, Fixture, Metadata}
 import async.oscillator.Oscillator
+import de.sciss.osc.{Server, TCP}
 
-class Maiparty extends Show {
+class Maiparty(val osc: Server) extends Show {
   val metaPar = new Metadata("foo", "par", None, Seq(
     Channel("dimmer", None, None),
     Channel("red", None, None),
