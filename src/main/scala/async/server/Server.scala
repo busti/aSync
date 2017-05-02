@@ -1,28 +1,32 @@
 package async.server
 
-import java.net.InetSocketAddress
-
-import async.show.Maiparty
-import async.util.OlaHelper
 import com.typesafe.scalalogging.LazyLogging
+import de.sciss
 import de.sciss.osc._
+import Implicits._
 
 object Server extends App with LazyLogging {
   logger.info("Starting Audio-Sync")
   //OlaHelper.initClient()
+  //*
 
-  val cfg = TCP.Config()
-  cfg.localPort = 8000
-  val osc = TCP.Server(cfg)
-  osc.action = {
-    case (Message(name, args@_*), from) => {
-      println(name)
-      println(args)
-      from ! Message("/pong", args: _*)
+  val cfg = UDP.Config()
+  cfg.localPort = 9876
+  val reciever    = sciss.osc.UDP.Receiver(cfg)
+  val transmitter = sciss.osc.UDP.Client("10.0.64.220" -> 8765)
+
+  reciever.connect()
+  transmitter.connect()
+
+  reciever.action = {
+    case (Message("/ping", params@_*), sender) =>
+      transmitter ! Message("/pong")
+    case (Message("/1/push1", params@_*), sender) =>
+      transmitter ! Message("/1/label1", params.head)
+    case (Message(name, params@_*), sender) => {
+      println(sender + " -> " + name + ":(" + params + ")")
     }
   }
-  osc.connect()
-  println(osc.localSocketAddress)
 
   /*
   new Maiparty(osc)
