@@ -9,7 +9,9 @@ libraryDependencies ++= Seq(
   "com.typesafe.scala-logging" %% "scala-logging"   % "3.5.0",
   "com.google.protobuf"        %  "protobuf-java"   % "3.2.0",
   "de.sciss"                   %% "scalaosc"        % "1.1.5",
-  "com.github.nscala-time"     %% "nscala-time"     % "2.16.0"
+  "com.github.nscala-time"     %% "nscala-time"     % "2.16.0",
+  "org.yaml"                   %  "snakeyaml"       % "1.18"
+
 )
 
 mainClass in (Compile, run) := Some("async.server.Server")

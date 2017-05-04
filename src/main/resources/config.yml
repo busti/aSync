@@ -1,0 +1,7 @@
+config-version: 1
+network:
+  ports:
+    recieve: 8000
+    transmit: 9000
+    http: 80
+    olad: 9060
