@@ -9,10 +9,12 @@ import de.sciss.osc.Implicits._
 import scala.collection.mutable
 
 object OscHelper extends LazyLogging {
-  private val clients = mutable.Map[String, UDP.Client]()
+  private val clients   = mutable.Map[String, UDP.Client]()
+  private val data      = mutable.Map[String, Seq[Any]]()
+  private var listeners = Seq[(String, Seq[Any] => Unit)]()
 
-  val reciever = UDP.Receiver({
-    val config = UDP.Config()
+  private val reciever = UDP.Receiver({
+    val config       = UDP.Config()
     config.localPort = 8000
     config
   })
@@ -20,15 +22,16 @@ object OscHelper extends LazyLogging {
 
   reciever.action = {
     case (Message("/ping"), from) => {
-      clients.getOrElseUpdate("from", {
-        val client = UDP.Client(from.asInstanceOf[InetSocketAddress].getAddress -> 9000)
+      val senderAddress = from.asInstanceOf[InetSocketAddress].getAddress
+      clients.getOrElseUpdate(senderAddress.getHostAddress, {
+        val client = UDP.Client(senderAddress -> 9000)
         client.connect()
         client
       }) ! Message("/pong")
     }
-    case (Message(name, args @_*), from) => {
-      println(from + " => " + name + " -> " + args)
-    }
+    case (Message(name, args@_*), from) =>
+      data += name -> args
+      listeners.filter(l => l._1 == name).foreach(l => l._2())
   }
 
   def init() {
@@ -39,5 +42,11 @@ object OscHelper extends LazyLogging {
       trm.close()
       address
     })
+  }
+
+  def apply(name: String) = data(name)
+
+  def listen(name: String, f: Seq[Any] => Unit) {
+    listeners +:= (name, f)
   }
 }
