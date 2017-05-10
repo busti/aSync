@@ -3,15 +3,10 @@ package async.util
 import com.typesafe.scalalogging.LazyLogging
 import ola.OlaClient
 
-object OlaHelper extends LazyLogging {
+class OlaService extends LazyLogging {
   logger.info("Starting OLA Client")
-  var olaClient: OlaClient = _
 
-  def initClient() {
-    olaClient = connect()
-  }
-
-  def connect(): OlaClient = {
+  val olaClient = {
     var olaClient: OlaClient = null
     do {
       try {
@@ -19,7 +14,7 @@ object OlaHelper extends LazyLogging {
       } catch {
         case e: Exception =>
           logger.debug("Connection attempt failed, retrying... ", e)
-          Thread.sleep(1000)
+          Thread.sleep(5000)
       }
     } while (olaClient == null)
     olaClient

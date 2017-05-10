@@ -24,3 +24,5 @@ libraryDependencies ++= Seq(
 )
 
 mainClass in (Compile, run) := Some("async.server.Server")
+
+enablePlugins(ScalaJSPlugin)

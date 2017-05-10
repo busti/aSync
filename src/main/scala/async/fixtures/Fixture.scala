@@ -1,6 +1,5 @@
 package async.fixtures
 
-import async.util.OlaHelper
 import spire.math.Quaternion
 
 import scala.concurrent.duration._
@@ -46,33 +45,5 @@ class Fixture(val metadata: Metadata, val position: Vector[Double], val orientat
     writeDMX("red", (red * 255).toByte)
     writeDMX("green", (green * 255).toByte)
     writeDMX("blue", (blue * 255).toByte)
-  }
-
-  Fixture.registerFixtures(this)
-
-}
-
-object Fixture {
-  val olaClient = OlaHelper.olaClient
-
-  var fixtures  = Seq[Fixture]()
-  var universes = Map[Int, Array[Byte]]()
-
-  def registerFixtures(fixtures: Fixture*) {
-    this.fixtures ++= fixtures
-    for (fixture <- fixtures) {
-      universes += fixture.universe -> Array.fill[Byte](512)(0)
-    }
-  }
-
-  /**
-    * Renders every fixtures DMX Data into the corresponding universe.
-    */
-  def render() {
-    fixtures.par.filter(fixture => fixture.dirty).foreach {
-      fixture =>
-        universes(fixture.universe)
-          .copyToArray(fixture.channelData, fixture.startPos)
-    }
   }
 }
