@@ -1,15 +1,16 @@
 name := "aSync"
 
 val commonSettings = Seq(
-  scalaVersion := "2.12.2"
+  scalaVersion := "2.12.2",
   version := "1.0"
 )
 
+val http4s = "0.17.0-M2"
+
 lazy val server = project
   .settings(commonSettings)
-  .settings({
-    name := "async-server"
-    val http4s = "0.17.0-M2"
+  .settings(
+    name := "async-server",
     libraryDependencies ++= Seq(
       "org.http4s"                 %% "http4s-dsl"          % http4s,
       "org.http4s"                 %% "http4s-blaze-server" % http4s,
@@ -24,7 +25,7 @@ lazy val server = project
 
       "org.webjars"                % "jquery"               % "3.2.0"
     )
-  })
+  )
 
 lazy val scalajs = project
   .enablePlugins(ScalaJSPlugin)
