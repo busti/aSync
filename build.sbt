@@ -27,8 +27,11 @@ lazy val server = project
     )
   )
 
-lazy val scalajs = project
+lazy val flow = project
   .enablePlugins(ScalaJSPlugin)
   .settings(commonSettings)
+  .settings(
+    scalaJSUseMainModuleInitializer := true
+  )
 
-lazy val root = project.in(file(".")).aggregate(server, scalajs)
+lazy val root = project.in(file(".")).aggregate(server, flow)
