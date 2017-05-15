@@ -24,7 +24,8 @@ lazy val server = project
       "de.sciss"                   %% "scalaosc"            % "1.1.5",
 
       "org.webjars"                % "jquery"               % "3.2.0"
-    )
+    ),
+    resources in Compile += (fastOptJS in Compile in flow).value.data
   )
 
 lazy val flow = project
@@ -34,4 +35,5 @@ lazy val flow = project
     scalaJSUseMainModuleInitializer := true
   )
 
-lazy val root = project.in(file(".")).aggregate(server, flow)
+lazy val root = project.in(file("."))
+  .aggregate(server, flow)
