@@ -21,18 +21,25 @@ lazy val server = project
       "ch.qos.logback"             % "logback-classic"      % "1.1.7",
       "com.typesafe.scala-logging" %% "scala-logging"       % "3.5.0",
       "com.google.protobuf"        % "protobuf-java"        % "3.2.0",
-      "de.sciss"                   %% "scalaosc"            % "1.1.5",
+      "de.sciss"                   %% "scalaosc"            % "1.1.5"
 
-      "org.webjars"                % "jquery"               % "3.2.0"
+      //"org.webjars"                % "jquery"               % "3.2.0"
     ),
-    resources in Compile += (fastOptJS in Compile in flow).value.data
+    resourceGenerators in Compile += Def.task {
+      val trg = (resourceManaged in Compile).value / "web" / "js" / "gFlow.js"
+      IO.copyFile((fastOptJS in Compile in flow).value.data, trg)
+      Seq(trg)
+    }.taskValue
   )
 
 lazy val flow = project
   .enablePlugins(ScalaJSPlugin)
   .settings(commonSettings)
   .settings(
-    scalaJSUseMainModuleInitializer := true
+    scalaJSUseMainModuleInitializer := true,
+    libraryDependencies += "be.doeraene"  %%% "scalajs-jquery" % "0.9.1",
+    skip in packageJSDependencies   := false,
+    jsDependencies      += "org.webjars"  %   "jquery"         % "3.2.0" / "3.2.0/jquery.js"
   )
 
 lazy val root = project.in(file("."))
