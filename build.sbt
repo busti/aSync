@@ -22,14 +22,17 @@ lazy val server = project
       "com.typesafe.scala-logging" %% "scala-logging"       % "3.5.0",
       "com.google.protobuf"        % "protobuf-java"        % "3.2.0",
       "de.sciss"                   %% "scalaosc"            % "1.1.5"
-
-      //"org.webjars"                % "jquery"               % "3.2.0"
     ),
+    compile in Compile <<= (compile in Compile) dependsOn (fastOptJS in(flow, Compile)),
     resourceGenerators in Compile += Def.task {
-      val trg = (resourceManaged in Compile).value / "web" / "js" / "gFlow.js"
-      IO.copyFile((fastOptJS in Compile in flow).value.data, trg)
-      Seq(trg)
-    }.taskValue
+      val files = ((crossTarget in(flow, Compile)).value ** ("*.js" || "*.map")).get
+      val mappings: Seq[(File,String)] = files pair rebase(
+        (crossTarget in(flow, Compile)).value,
+        ((resourceManaged in  Compile).value / "web/js/").getAbsolutePath
+      )
+      val map: Seq[(File, File)] = mappings.map { case (s, t) => (s, file(t))}
+      IO.copy(map).toSeq
+    }
   )
 
 lazy val flow = project
@@ -37,7 +40,11 @@ lazy val flow = project
   .settings(commonSettings)
   .settings(
     scalaJSUseMainModuleInitializer := true,
-    libraryDependencies += "be.doeraene"  %%% "scalajs-jquery" % "0.9.1",
+    libraryDependencies ++= Seq(
+      "org.scala-js" %%% "scalajs-dom" % "0.9.1",
+      "com.lihaoyi"  %%% "scalatags"   % "0.6.5",
+      "be.doeraene"  %%% "scalajs-jquery" % "0.9.1"
+    ),
     skip in packageJSDependencies   := false,
     jsDependencies      += "org.webjars"  %   "jquery"         % "3.2.0" / "3.2.0/jquery.js"
   )
