@@ -35,3 +35,11 @@ controllers and fixtures.
 To get started lets take a look at controlling the color of an RGB - Par Fixture using a linear slider or rotary knob.  
 Lets assume that the software is able to recieve data from a Midi device which contains said slider.
 
+![Foo](https://raw.githubusercontent.com/Busti/aSync/master/doc/images/poc_d1.0.png)
+
+The above example example computes an RGB Color using an HSV to RGB converter so that the value of the fader is mapped to the Hue input of the converter.
+A Constant is used to set the Saturation and Value inputs to 1 in order to make the converter generate a color at maximum brightness and saturation.
+
+This concept can be expanded to create complex effects such as a chaser effect.  
+The following example will create a chase effect for 3 single channel fixtures.
+
