@@ -19,7 +19,7 @@ object Server extends App with LazyLogging {
     if (i > 255)
       i = 0
 
-    for (j <- 0 to data.length)
+    for (j <- data.indices)
       data(j) = i.toShort
 
     Thread.sleep(100)
