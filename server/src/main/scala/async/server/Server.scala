@@ -16,7 +16,7 @@ object Server extends App with LazyLogging {
     if (i > 255)
       i = 0
 
-    ola.olaClient.sendDmx(1, Array.fill[Short](512)(i))
+    ola.olaClient.sendDmx(1, Array.fill[Short](512)(i.toShort))
 
     Thread.sleep(100)
   }
