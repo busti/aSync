@@ -1,6 +1,6 @@
 package aSync
 
-import aSync.surface.{Grid, Surface}
+import aSync.surface.Surface
 import org.scalajs.dom.svg.SVG
 import org.scalajs.jquery.jQuery
 
@@ -12,7 +12,7 @@ object GFlow extends JSApp {
     for (element <- elements) {
       element match {
         case svg: SVG =>
-          val surface = new Surface(new Grid)
+          val surface = new Surface
           svg.appendChild(surface.definitions())
           svg.appendChild(surface.render())
       }
